@@ -35,12 +35,12 @@ add 1 neuron
 ```
 
 
-add 1 weight from 1 neuron to a neuron of a previous layer
+add 1 connection from 1 neuron to a neuron of a previous layer
 - randomize the layer
 - randomize the neuron
 - randomize the target layer
 - randomize the target neuron
-- randomize the weight
+- randomize the connection
 ```
 [
   { _name: :input, a: nil, b: nil },
@@ -53,12 +53,12 @@ add 1 weight from 1 neuron to a neuron of a previous layer
 ]
 ```
 
-modify 1 weight value
+modify 1 connection weight
 - randomize the layer
 - randomize the neuron
 - randomize the target layer
 - randomize the target neuron
-- randomize the weight
+- randomize the connection
 - randomize amount of + / -
 - randomize it to be a reasonable change
 ```
@@ -73,14 +73,14 @@ modify 1 weight value
 ]
 ```
 
-remove 1 weight
+remove 1 connection
 - randomize the layer
 - randomize the neuron
 - if neuron has target_layers
   - randomize the target layer
-  - randomize the weight
-  - remove the weight
-  - if last weight
+  - randomize the connection
+  - remove the connection
+  - if last connection
     - remove the target layer
 ```
 [
@@ -103,8 +103,8 @@ remove 1 neuron
   - iterate through neurons
     - if to be deleted layer
       - if to be deleted neuron
-        - remove weight
-        - if last weight
+        - remove connection
+        - if last connection
           - remove the target layer
 ```
 [
