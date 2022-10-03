@@ -41,21 +41,21 @@ puts deep_copy
 # puts JSON.pretty_generate(deep_copy)
 puts ''
 
-2.times { mutator.remove_neuron(network: deep_copy) }
-puts "removed neurons:"
-puts deep_copy
+# 2.times { mutator.remove_neuron(network: deep_copy) }
+# puts "removed neurons:"
+# puts deep_copy
 # puts JSON.pretty_generate(deep_copy)
-puts ''
+# puts ''
 
-3.times { mutator.remove_layer(network: deep_copy) }
-puts "removed layers:"
-puts deep_copy
-puts ''
+# 3.times { mutator.remove_layer(network: deep_copy) }
+# puts "removed layers:"
+# puts deep_copy
+# puts ''
+
+puts "got result:"
+puts NeuralNetwork.new(network: deep_copy).calculate_score(input: { a: 1, b: 2 })
 
 # debug situation
 # binding.pry
-
-
-
 
 p 'end'
