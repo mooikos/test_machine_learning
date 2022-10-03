@@ -65,7 +65,10 @@ class Mutator
     # randomize the referenced layer
     referenced_layer = network[rand(target_layer_index)]
 
-    # return if all of the target layer neurons have already a connection
+    # return if referenced layer has no neurons
+    return if (referenced_layer.keys - [LAYER_NAME_KEY]).empty?
+
+    # return if the target layer neurons are completely connected
     referenced_neurons = target_neuron[referenced_layer[LAYER_NAME_KEY]]
     return if referenced_neurons && (referenced_neurons.length == referenced_layer.length - 1)
 
@@ -124,6 +127,64 @@ class Mutator
       target_connection = referenced_layer.keys.sample
       referenced_layer.delete(target_connection)
     end
+  end
+
+  def remove_neuron(network:)
+    # return if there are no intermediate layers
+    return if network.length <= 2
+
+    # randomize a layer
+    target_layer_index = rand(network.length - 2) + 1
+    target_layer = network[target_layer_index]
+    target_layer_name = target_layer[LAYER_NAME_KEY]
+
+    # return if the layer has no neurons
+    return if target_layer[LAYER_NAME_KEY] && target_layer.length <= 1
+
+    # randomize a neuron
+    target_neuron_key = (target_layer.keys - [LAYER_NAME_KEY]).sample
+    target_layer.delete(target_neuron_key)
+
+    # iterate on following layers
+    network[target_layer_index..network.length - 1].each do |layer|
+      # iterate on the neurons
+      layer.each do |neuron_name, neuron_value|
+        next if neuron_name == LAYER_NAME_KEY
+
+        neuron_value.each do |referenced_layer_key, referenced_layer_value|
+          if referenced_layer_key == target_layer_name
+            # remove reference to the target neuron
+            referenced_layer_value.delete(target_neuron_key)
+            # remove reference to the layer if target neuron was the only one
+            neuron_value.delete(referenced_layer_key) if referenced_layer_value.length == 0
+          end
+        end
+      end
+    end
+  end
+
+  def remove_layer(network:)
+    # return if there are no intermediate layers
+    return if network.length <= 2
+
+    # randomize a layer
+    target_layer_index = rand(network.length - 2) + 1
+    target_layer = network[target_layer_index]
+    target_layer_name = target_layer[LAYER_NAME_KEY]
+
+    # iterate on following layers to remove references
+    network[target_layer_index..network.length - 1].each do |layer|
+      # iterate on the neurons
+      layer.each do |neuron_name, neuron_value|
+        next if neuron_name == LAYER_NAME_KEY
+
+        # delete the referenced layer
+        neuron_value.delete(target_layer_name)
+      end
+    end
+
+    # delete the target layer
+    network.delete_at(target_layer_index)
   end
 
   private

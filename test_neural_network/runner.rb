@@ -12,17 +12,20 @@ mutator = Mutator.new
 
 deep_copy = Marshal.load(Marshal.dump original_network.network)
 
+# for output formatting
+require 'json'
+
 3.times { mutator.add_layer(network: deep_copy) }
 puts "added layers:"
 puts deep_copy
 puts ''
 
-5.times { mutator.add_neuron(network: deep_copy) }
+10.times { mutator.add_neuron(network: deep_copy) }
 puts "added neurons:"
 puts deep_copy
 puts ''
 
-10.times { mutator.add_connection(network: deep_copy) }
+20.times { mutator.add_connection(network: deep_copy) }
 puts "added connections:"
 puts deep_copy
 puts ''
@@ -35,10 +38,22 @@ puts ''
 5.times { mutator.remove_connection(network: deep_copy) }
 puts "removed connections:"
 puts deep_copy
+# puts JSON.pretty_generate(deep_copy)
+puts ''
+
+2.times { mutator.remove_neuron(network: deep_copy) }
+puts "removed neurons:"
+puts deep_copy
+# puts JSON.pretty_generate(deep_copy)
+puts ''
+
+3.times { mutator.remove_layer(network: deep_copy) }
+puts "removed layers:"
+puts deep_copy
 puts ''
 
 # debug situation
-binding.pry
+# binding.pry
 
 
 
