@@ -1,8 +1,0 @@
-# frozen_string_literal: true
-source 'https://rubygems.org'
-
-# debugger
-gem 'pry-byebug', '~> 3.0'
-
-# static analyser
-gem 'rubocop', '~> 1.0'
