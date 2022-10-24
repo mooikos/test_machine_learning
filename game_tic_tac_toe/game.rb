@@ -70,7 +70,7 @@ class Game
   def winner_left_rigth?(row:, column:, value:)
     amount = 1
     column_copy = column
-    while (column_copy += 1) < column_copy && board[row][column_copy] == value
+    while (column_copy += 1) < columns_amount && board[row][column_copy] == value
       amount += 1
       return true if amount == winner_amount
     end
