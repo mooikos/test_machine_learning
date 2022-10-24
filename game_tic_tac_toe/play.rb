@@ -6,6 +6,12 @@ require 'pry-byebug'
 # game
 require_relative './game'
 
+## interfaces
+# game creation: initialize
+# get game moves: available_moves
+# make move: make_move
+# check winner: winner?
+
 my_game = Game.new
 
 9.times do |iteration|
@@ -20,5 +26,3 @@ my_game = Game.new
     break
   end
 end
-
-p 'the end'

@@ -8,6 +8,7 @@ class Game
     @columns_amount = columns_amount
     @board = Array.new(rows_amount) {Array.new(columns_amount)}
     @winner_amount = 3
+    @game_over = false
   end
 
   attr_accessor :rows_amount, :columns_amount, :board, :winner_amount
