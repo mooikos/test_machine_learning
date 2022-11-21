@@ -9,13 +9,13 @@ class NeuralNetwork
 
   attr_reader :network
 
-  def calculate_score(input:)
-    unless (network[0].keys - [LAYER_NAME_KEY]) == input.keys
-      raise DifferentInputsError, "the provided inputs\n:#{input}" \
-                                  "are different from the network inputs\n:#{}"
+  def calculate_score(inputs:)
+    unless (network[0].keys - [LAYER_NAME_KEY]) == inputs.keys
+      raise DifferentInputsError, "the provided inputs\n:#{inputs}" \
+                                  "\nare different from the network inputs\n:#{network[0]}"
     end
 
-    layers_results = { in: input }
+    layers_results = { in: inputs }
     # iterate on the layers
     network[1..-1].each do |layer|
       layers_results[layer[LAYER_NAME_KEY]] = {}

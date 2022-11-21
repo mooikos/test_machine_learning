@@ -53,7 +53,7 @@ puts ''
 # puts ''
 
 puts "got result:"
-puts NeuralNetwork.new(network: deep_copy).calculate_score(input: { a: 1, b: 2 })
+puts NeuralNetwork.new(network: deep_copy).calculate_score(inputs: { a: 1, b: 2 })
 
 # debug situation
 # binding.pry

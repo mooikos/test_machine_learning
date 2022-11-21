@@ -6,14 +6,9 @@ require 'pry-byebug'
 # game
 require_relative './game'
 
-## interfaces
-# game creation: initialize
-# get game moves: available_moves
-# make move: make_move
-# check winner: winner?
-
 my_game = Game.new
 
+# random challenge
 9.times do |iteration|
   value = iteration.odd? ? 1 : 0
   move = my_game.available_moves.shuffle.first
