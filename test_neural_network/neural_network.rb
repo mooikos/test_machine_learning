@@ -3,8 +3,8 @@ class NeuralNetwork
 
   LAYER_NAME_KEY = :_name
 
-  def initialize(network: nil)
-    @network = network || default_new_initial_network
+  def initialize(inputs: [:a, :b, :c], outputs: [:a, :b, :c])
+    @network = new_initial_network(inputs:,  outputs:)
   end
 
   attr_reader :network
@@ -48,10 +48,13 @@ class NeuralNetwork
 
   private
 
-  def default_new_initial_network
-    [
-      { LAYER_NAME_KEY => :in, a: nil, b: nil },
-      { LAYER_NAME_KEY => :out, a: {}, b: {} }
-    ]
+  def new_initial_network(inputs:,  outputs:)
+    network = []
+    input_layer = { LAYER_NAME_KEY => :in }
+    inputs.each { |input| input_layer[input] = nil }
+    network << input_layer
+    output_layer = { LAYER_NAME_KEY => :out }
+    outputs.each { |output| output_layer[output] = {} }
+    network << output_layer
   end
 end
