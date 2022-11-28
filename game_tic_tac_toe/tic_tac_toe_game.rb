@@ -6,7 +6,7 @@ class TicTacToeGame < Game
   def initialize(rows_amount: 3, columns_amount: 3, winner_amount: 3)
     @rows_amount = rows_amount
     @columns_amount = columns_amount
-    @board = Array.new(rows_amount) {Array.new(columns_amount)}
+    @board = Array.new(rows_amount) { Array.new(columns_amount) }
     @moves_log = []
     @winner_amount = 3
     @game_over = false
