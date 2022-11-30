@@ -11,6 +11,7 @@ class GeneticAlgorithm
   # parenting_population_ratio: ratio of NON ELITISM population that will generate childs
   #   eg: 10 population, 3 elitism, 0.5 ratio => (10 - 4) * 0.5 = 3
   def initialize(environment:, entity:, population_size:, elitism: 2, parenting_population_ratio: 0.5, mutations_amount: 1)
+    @environment = environment
     @entity = entity
     @population_size = population_size
     @population = []

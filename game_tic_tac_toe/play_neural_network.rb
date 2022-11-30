@@ -47,17 +47,39 @@ ai = NeuralNetwork.new(network: [inputs, outputs])
   ai_scores = ai.calculate_score(inputs: ai_inputs)
 
   # assign the ai_scores to the available_moves
-  available_moves = my_game.available_moves
-  available_moves.map! do |available_move|
-    {
-      move: available_move,
-      score: ai_scores["r#{available_move[0]}".to_sym] + ai_scores["c#{available_move[1]}".to_sym]
-    }
-  end
+  # available_moves = my_game.available_moves
+  # available_moves.map! do |available_move|
+  #   {
+  #     move: available_move,
+  #     score: ai_scores["r#{available_move[0]}".to_sym] + ai_scores["c#{available_move[1]}".to_sym]
+  #   }
+  # end
 
   # sort by score
-  available_moves.sort! do |move_a, move_b|
-    move_a[:score] <=> move_b[:score]
+  # available_moves.sort! do |move_a, move_b|
+  #   move_a[:score] <=> move_b[:score]
+  # end
+
+  best_row_score = 0
+  best_rows = []
+  best_column_score = 0
+  best_columns = []
+  ai_scores.each_pair do |output, score|
+    if output.start_with? "r"
+      if score > best_row_score
+        best_row_score = score
+        best_rows = [{ output => score }]
+      elsif score == best_row_score
+        best_rows << { output => score }
+      end
+    else
+      if score > best_column_score
+        best_column_score = score
+        best_columns = [{ output => score }]
+      elsif score == best_column_score
+        best_columns << { output => score }
+      end
+    end
   end
 
   # will pick the first

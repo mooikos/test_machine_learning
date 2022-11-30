@@ -3,6 +3,10 @@
 class TicTacToeGame < Game
   class IllegalMoveError < StandardError; end
 
+  # current board:
+  #  [ [0, 1, 0], ... ]
+  # alternative:
+  #  { r1: { r1c1: 0, r1c2: 1, r1c3: 0 }, ... }
   def initialize(rows_amount: 3, columns_amount: 3, winner_amount: 3)
     @rows_amount = rows_amount
     @columns_amount = columns_amount

@@ -11,7 +11,7 @@ class TicTacToeBrain
         inputs["r#{row}c#{column}".to_sym] = nil
       end
     end
-    @neural_network = NeuralNetwork.new(network: [inputs, outputs])
+    @neural_network = NeuralNetwork.new(inputs:, outputs:)
   end
 
   attr_reader :neural_network
