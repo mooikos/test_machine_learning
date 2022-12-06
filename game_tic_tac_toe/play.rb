@@ -10,7 +10,7 @@ require_relative "genetic_algorithm"
 require_relative "neural_network"
 
 # tic tac toe classes
-require_relative "environment"
+require_relative "game_environment"
 require_relative "game"
 require_relative "tic_tac_toe_game"
 require_relative "tic_tac_toe_brain"

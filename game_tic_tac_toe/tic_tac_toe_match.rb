@@ -17,49 +17,49 @@ class TicTacToeMatch
       ai_inputs = {}
       game.board.each_with_index do |row, row_index|
         row.each_with_index do |column, column_index|
-          ai_inputs["r#{row_index}c#{column_index}".to_sym] = column.nil? ? 0.5 : column
+          ai_inputs["r#{row_index}c#{column_index}".to_sym] = column.nil? ? 0.5 :
+                                                              iteration.odd? ? column : 1 - column
         end
       end
-binding.pry
+
       # ask the ai to calculate the scores
-      ai_scores = of_turn.calculate_score(inputs: ai_inputs)
+      ai_scores = of_turn[:brain].calculate_score(inputs: ai_inputs)
 
-      # select the best row and column score
-      best_row_score = 0
-      best_rows = []
-      best_column_score = 0
-      best_columns = []
-      ai_scores.each_pair do |output, score|
-        if output.start_with? "r"
-          if score > best_row_score
-            best_row_score = score
-            best_rows = [{ output => score }]
-          elsif score == best_row_score
-            best_rows << { output => score }
-          end
+      # splits the scores
+      rows = []
+      columns = []
+      ai_scores.each do |score|
+        if score.first.start_with? 'r'
+          rows << score
         else
-          if score > best_column_score
-            best_column_score = score
-            best_columns = [{ output => score }]
-          elsif score == best_column_score
-            best_columns << { output => score }
-          end
+          columns << score
         end
       end
 
-      # will pick the first
-      move = [best_rows.first, best_columns.first]
-      game.make_move(move:, value:)
+      # create the combined scores
+      ai_scores = []
+      rows.each do |row|
+        columns.each do |column|
+          ai_scores << [[row[0][1].to_i, column[0][1].to_i], row[1] + column[1]]
+        end
+      end
+      # sort them
+      ai_scores.sort! { |score_a, score_b| score_a[1] <=> score_b[1] }
+      # only map the moves
+      moves = ai_scores.map { |ai_score| ai_score[0] }
+
+      # find one the best usable
+      available_moves = game.available_moves
+      move = moves.find { |move| available_moves.include? move }
+
+      # play it !
+      game.make_move!(move:, value: of_turn[:value])
 
       # FIXME: consider checking the winner after moving
-      if game.winner?(previous_move: move, value:)
-        puts "\n'#{value}' is the WINNER !!\n\n"
-        game.board.each { |row| p row }
-        puts "\nlast move: #{move}"
-        break
-      end
+      return of_turn[:brain] if game.winner?(value: of_turn[:value])
     end
 
-    # returns winner or 0 ??
+    # nobody wins
+    nil
   end
 end

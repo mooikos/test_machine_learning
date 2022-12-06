@@ -9,11 +9,16 @@ class GameEnvironment
   attr_accessor :match_class
 
   def sort_by_fitness(population:)
+    FIXME: check if the entries passes are actually different ??
+
     population.each_with_index do |protagonist, protagonist_index|
       population[protagonist_index..-1].each do |challenger|
+binding.pry
         # do 3 matches for each side
-        match_class.new(player_1: protagonist, player_2: challenger).play!
-        match_class.new(player_1: challenger, player_2: protagonist).play!
+        match = match_class.new(player_1: protagonist, player_2: challenger)
+
+        winner = match_class.new(player_1: protagonist, player_2: challenger).play!
+        winner = match_class.new(player_1: challenger, player_2: protagonist).play!
       end
     end
   end
