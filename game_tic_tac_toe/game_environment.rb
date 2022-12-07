@@ -8,18 +8,33 @@ class GameEnvironment
 
   attr_accessor :match_class
 
-  def sort_by_fitness(population:)
-    FIXME: check if the entries passes are actually different ??
+  def sort_by_fitness!(population:)
+    population = population.map! { |brain| { brain => 0 } }
 
     population.each_with_index do |protagonist, protagonist_index|
-      population[protagonist_index..-1].each do |challenger|
-binding.pry
+      population[protagonist_index+1..-1].each do |challenger|
         # do 3 matches for each side
-        match = match_class.new(player_1: protagonist, player_2: challenger)
-
-        winner = match_class.new(player_1: protagonist, player_2: challenger).play!
-        winner = match_class.new(player_1: challenger, player_2: protagonist).play!
+        3.times do
+          winner = match_class.new(player_1: protagonist.keys.first, player_2: challenger.keys.first)
+                              .play!
+          if protagonist.keys.first == winner
+            protagonist[protagonist.keys.first] += 1
+          else
+            challenger[challenger.keys.first] += 1
+          end
+          winner = match_class.new(player_1: challenger.keys.first, player_2: protagonist.keys.first)
+                              .play!
+          if protagonist.keys.first == winner
+            protagonist[protagonist.keys.first] += 1
+          else
+            challenger[challenger.keys.first] += 1
+          end
+        end
       end
     end
+
+    population.sort! { |brain_1, brain_2| brain_1.first.last <=> brain_2.first.last }
+              .reverse!
+    population.map! { |brain| brain.keys.first }
   end
 end

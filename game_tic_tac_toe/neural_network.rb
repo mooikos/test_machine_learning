@@ -1,13 +1,19 @@
 # frozen_string_literal: true
 
 class NeuralNetwork
+  class IncompatibleParametersError < StandardError; end
   class DifferentInputsError < StandardError; end
 
   LAYER_NAME_KEY = :_name
 
   # inputs and outputs need to be arrays of symbols
-  def initialize(inputs: [:a, :b, :c], outputs: [:a, :b, :c])
-    @network = new_initial_network(inputs:,  outputs:)
+  def initialize(inputs: [:a, :b, :c], outputs: [:a, :b, :c], network: nil)
+    if network && inputs
+      error_text = "please provide only 'inputs & outputs' or 'network' parameter"
+      raise IncompatibleParametersError, error_text
+    end
+
+    @network = network || new_initial_network(inputs:,  outputs:)
   end
 
   attr_reader :network
