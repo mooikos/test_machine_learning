@@ -23,7 +23,7 @@ class TicTacToeBrain
 
   def clone
     copy = self.class.new(rows: 0)
-    copy.instance_variable_set(:@neural_network, Marshal.load(Marshal.dump neural_network.network))
+    copy.instance_variable_set(:@neural_network, NeuralNetwork.new(network: Marshal.load(Marshal.dump neural_network.network)))
     copy
   end
 end

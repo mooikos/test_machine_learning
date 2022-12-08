@@ -18,9 +18,14 @@ require_relative "tic_tac_toe_brain"
 require_relative "tic_tac_toe_match"
 
 # initialisations and start
-GeneticAlgorithm.new(
+genetic_algorithm = GeneticAlgorithm.new(
   environment: GameEnvironment.new(match_class: TicTacToeMatch),
   entity: TicTacToeBrain,
-  population_size: 10,
+  population_size: 100,
   mutator: Mutator.new
-).simulate_generations(generations: 5)
+)
+genetic_algorithm.simulate_generations!(generations: 50)
+
+binding.pry
+
+p "THE END !!"

@@ -6,14 +6,19 @@ class NeuralNetwork
 
   LAYER_NAME_KEY = :_name
 
+  DEFAULT_INPUTS = [:a, :b, :c]
+  DEFAULT_OUTPUTS = [:a, :b, :c]
+
   # inputs and outputs need to be arrays of symbols
-  def initialize(inputs: [:a, :b, :c], outputs: [:a, :b, :c], network: nil)
+  def initialize(inputs: nil, outputs: nil, network: nil)
     if network && inputs
       error_text = "please provide only 'inputs & outputs' or 'network' parameter"
       raise IncompatibleParametersError, error_text
     end
 
-    @network = network || new_initial_network(inputs:,  outputs:)
+    inputs ||= DEFAULT_INPUTS
+    outputs ||= DEFAULT_OUTPUTS
+    @network = network || new_initial_network(inputs:, outputs:)
   end
 
   attr_reader :network

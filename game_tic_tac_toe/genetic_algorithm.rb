@@ -25,33 +25,24 @@ class GeneticAlgorithm
   end
 
   ### generation loop
-  def simulate_generations(generations:)
+  def simulate_generations!(generations:)
     generations.times do |generation|
+      p "going to run generation n. #{generation} !!"
       # sort based on fitness
       environment.sort_by_fitness!(population:)
-binding.pry
+
       # replace with children the non elite
       generate_children!
-      # population[elitism..-1] = generate_children(population_size - elitism)
-
-      # mutate new pop (0 to mutations_amount per gen, uniformly distributed)
-      rand(mutations_amount + 1).times { mutate(population[rand(population_size)], rand(genoma_size)) }
-
-      # conditional logging / debugging
-      # ??
     end
   end
 
   private
 
-  # parenting_population - elitism
-  # 2 3 4 5
-
   def generate_children!
     parents_amount = parenting_population - elitism
     population[elitism..-1] = population[elitism..-1].each_with_index.map do |_parent, index|
       child = population[(index + elitism) % parents_amount].clone
-      mutator.mutate!(network: child.neural_network)
+      mutator.mutate!(network: child.neural_network.network)
       child
     end
   end
