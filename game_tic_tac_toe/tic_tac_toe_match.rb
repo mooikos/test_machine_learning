@@ -44,7 +44,7 @@ class TicTacToeMatch
         end
       end
       # sort them
-      ai_scores.sort! { |score_a, score_b| score_a[1] <=> score_b[1] }
+      ai_scores.shuffle!.sort! { |score_a, score_b| score_a[1] <=> score_b[1] }
       # only map the moves
       moves = ai_scores.map { |ai_score| ai_score[0] }
 

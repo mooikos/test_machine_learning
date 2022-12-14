@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class GeneticAlgorithm
-  attr_reader :environment, # the environment to "evolve" the entities
+  attr_reader :generation, # represent the amount of iteration loops
+              :environment, # the environment to "evolve" the entities
               :entity, # the entity that will "evolve"
               :population, :population_size, # population array and size
               :elitism, # the best N individuals are preserved for the next generation
@@ -12,6 +13,8 @@ class GeneticAlgorithm
   # parenting_population_ratio: ratio of NON ELITISM population that will generate childs
   #   eg: 10 population, 3 elitism, 0.5 ratio => (10 - 4) * 0.5 = 3
   def initialize(environment:, entity:, population_size:, elitism: 1, parenting_population_ratio: 0.5, mutator:, mutations_amount: 1)
+    @generation = 0
+
     @environment = environment
     @entity = entity
     @population_size = population_size
@@ -28,11 +31,14 @@ class GeneticAlgorithm
   def simulate_generations!(generations:)
     generations.times do |generation|
       p "going to run generation n. #{generation} !!"
+
       # sort based on fitness
       environment.sort_by_fitness!(population:)
 
       # replace with children the non elite
       generate_children!
+
+      @generation += 1
     end
   end
 

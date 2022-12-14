@@ -23,13 +23,13 @@ class Mutator
   attr_reader :layer_name_key, :names_length, :limit_layers, :limit_neurons
 
   def mutate!(network:)
-    add_layer(network:) if rand > 0.2
-    add_neuron(network:) if rand > 0.4
-    add_connection(network:) if rand > 0.8
-    modify_connection_weight(network:) if rand > 0.9
-    remove_connection(network:) if rand > 0.2
-    remove_neuron(network:) if rand > 0.05
-    remove_layer(network:) if rand > 0.01
+    add_layer(network:) if rand > 0.8
+    add_neuron(network:) if rand > 0.6
+    add_connection(network:) if rand > 0.3
+    modify_connection_weight(network:) if rand > 0.1
+    remove_connection(network:) if rand > 0.7
+    remove_neuron(network:) if rand > 0.90
+    remove_layer(network:) if rand > 0.95
   end
 
   private

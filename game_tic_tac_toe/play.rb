@@ -21,11 +21,21 @@ require_relative "tic_tac_toe_match"
 genetic_algorithm = GeneticAlgorithm.new(
   environment: GameEnvironment.new(match_class: TicTacToeMatch),
   entity: TicTacToeBrain,
-  population_size: 100,
+  population_size: 20,
   mutator: Mutator.new
 )
-genetic_algorithm.simulate_generations!(generations: 50)
+genetic_algorithm.simulate_generations!(generations: 10)
 
 binding.pry
+
+# check manualy prowess
+latest_best_brain = genetic_algorithm.population.first
+ai_inputs = {
+  r0c0: 0.5, r0c1: 0.5, r0c2: 0.5,
+  r1c0: 0.5, r1c1: 0.5, r1c2: 0.5,
+  r2c0: 0.5, r2c1: 0.5, r2c2: 0.5,
+}
+latest_best_brain.calculate_score(inputs: ai_inputs).sort
+
 
 p "THE END !!"
