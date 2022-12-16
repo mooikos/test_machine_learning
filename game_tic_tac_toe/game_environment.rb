@@ -18,22 +18,22 @@ class GameEnvironment
           winner = match_class.new(player_1: protagonist.keys.first, player_2: challenger.keys.first)
                               .play!
           if protagonist.keys.first == winner
-            protagonist[protagonist.keys.first] += 1
+            protagonist[protagonist.keys.first] += 10
           elsif challenger.keys.first == winner
-            challenger[challenger.keys.first] += 1
+            challenger[challenger.keys.first] += 10
           else
-            protagonist[protagonist.keys.first] += 0.5
-            challenger[challenger.keys.first] += 0.5
+            protagonist[protagonist.keys.first] += 3
+            challenger[challenger.keys.first] += 3
           end
           winner = match_class.new(player_1: challenger.keys.first, player_2: protagonist.keys.first)
                               .play!
           if protagonist.keys.first == winner
-            protagonist[protagonist.keys.first] += 1
+            protagonist[protagonist.keys.first] += 10
           elsif challenger.keys.first == winner
-            challenger[challenger.keys.first] += 1
+            challenger[challenger.keys.first] += 10
           else
-            protagonist[protagonist.keys.first] += 0.5
-            challenger[challenger.keys.first] += 0.5
+            protagonist[protagonist.keys.first] += 3
+            challenger[challenger.keys.first] += 3
           end
         end
       end

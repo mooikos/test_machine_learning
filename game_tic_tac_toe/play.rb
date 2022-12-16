@@ -24,7 +24,7 @@ genetic_algorithm = GeneticAlgorithm.new(
   population_size: 20,
   mutator: Mutator.new
 )
-genetic_algorithm.simulate_generations!(generations: 10)
+genetic_algorithm.simulate_generations!(generations: 100)
 
 binding.pry
 
